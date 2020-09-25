@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>表单</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script src="https://cdn.bootcdn.net/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body id="body">
+    <form action="https://guigu.wizarpos.com/onlinePayment/v1_1/pay/jsapi" method="POST" id="unionWapPayForm" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">terminal_no</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="terminal_no" name="terminal_no"
+                       placeholder="terminal_no" value="WebServer">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="spbill_create_ip" class="col-sm-2 control-label">spbill_create_ip</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="spbill_create_ip" name="spbill_create_ip"
+                       placeholder="spbill_create_ip" value="192.168.1.1">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="spbill_create_ip" class="col-sm-2 control-label">total_fee</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="total_fee" name="total_fee"
+                       placeholder="total_fee" value="10">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="spbill_create_ip" class="col-sm-2 control-label">pay_channel</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="pay_channel" name="pay_channel"
+                       placeholder="pay_channel" value="UNS">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="spbill_create_ip" class="col-sm-2 control-label">mid</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="pay_channel" name="mid"
+                       placeholder="mid" value="100122220000005">
+            </div>
+        </div>
+       
+        <div class="form-group">
+            <label for="spbill_create_ip" class="col-sm-2 control-label">goods_info</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="goods_info" name="goods_info"
+                       placeholder="goods_info" value="Test_Product">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="spbill_create_ip" class="col-sm-2 control-label">out_trade_no</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="out_trade_no" name="out_trade_no"
+                       placeholder="out_trade_no" value="CX202008030009">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="spbill_create_ip" class="col-sm-2 control-label">return_url</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="return_url" name="return_url"
+                       placeholder="return_url" value="https://php.motionpay.org/motionpayAPI_PHP_RMB/callback.php">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="spbill_create_ip" class="col-sm-2 control-label">sign</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="sign" name="sign"
+                       placeholder="sign" value="27420A27DDB6380D36EBA42BEF8A93D36ED073D1">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-defaul">表单提交</button>
+    </form>
+
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <button  id="submit"  onclick="submit()"  class="btn btn-default">提交</button>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    $.fn.serializeJSON=function(){  
+            var serializeObj={};  
+            var array=this.serializeArray();  
+            var str=this.serialize();  
+            $(array).each(function(){  
+                if(serializeObj[this.name]){  
+                    if($.isArray(serializeObj[this.name])){  
+                        serializeObj[this.name].push(this.value);  
+                    }else{  
+                        serializeObj[this.name]=[serializeObj[this.name],this.value];  
+                    }  
+                }else{  
+                    serializeObj[this.name]=this.value;   
+                }  
+            });  
+            return serializeObj;  
+        };
+var  res={
+                    "sign": "27420A27DDB6380D36EBA42BEF8A93D36ED073D1",
+                        "terminal_no": "WebServer",
+                        "spbill_create_ip": "192.168.1.1",
+                        "total_fee": "10",
+                        "pay_channel": "W",
+                        "mid": "100122220000005",
+                        "goods_info": "Test_Product",
+                        "out_trade_no": "CX202008030009",
+                        "return_url": "https://php.motionpay.org/motionpayAPI_PHP_RMB/callback.php"
+                        };
+    var data=JSON.stringify(res);
+
+	function submit(){
+        var arry = $("#unionWapPayForm").serializeJSON();
+        console.info(arry);
+        var data=JSON.stringify(arry);
+        alert(data);
+        if(data==null){
+            alert("data in null");
+        }
+
+        $.ajax({
+		        type : 'post',
+                contentType:"application/json",
+                url : 'https://guigu.wizarpos.com/onlinePayment/v1_1/pay/jsapi',
+               
+                data : data,
+                success : function(data) {
+                    console.info(data);
+                    alert("返回结果:"+JSON.stringify(data));
+                	$("#body").append(data.content.responseData);
+                },
+                error : function(){
+                	console.info(error);
+                }
+           })
+    }
+        
+	   
+	
+    
+</script>
+
+<script>
+    
+function queryParse(href) {
+    let obj={};
+    let p=href.split("?")[1];
+    let p2= p.split("&");
+    console.log(p2);
+    
+    for(var i=0;i<p2.length;i++){
+        var key= p2[i].split("=")[0];
+        var value= p2[i].split("=")[1];
+        obj[key]=value
+         
+         
+      
+    }
+
+    return obj;
+}
+    const href1 = 'https://www.alipay.com?width=123&height=567&dpi=2#name';
+
+console.info("href:",queryParse(href1));
+    
+</script>
+
+    
+    
+    
+
+
+
