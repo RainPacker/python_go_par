@@ -74,7 +74,6 @@ def search_card():
 
 
 def deal(find_dict):
-
     action_str = input("请选择要执行的菜单，【1】： 修改 【2】：删除 【0】：返回上一级菜单")
 
     if action_str == "1":
@@ -101,3 +100,25 @@ def card_input_info(dict_value, tips_message):
         return input_str
     else:
         return dict_value
+
+
+def sum_nums(*args):
+    print(args)
+    sum = 0
+    for num in args:
+        sum += num
+    return sum
+
+
+res = sum_nums(1, 2, 3, 4, 6, 7, )
+print(res)
+
+
+def demo(*args, **kwargs):
+    print(args),
+    print(kwargs)
+
+gl_num = (1, 2, 3)
+gl_dict = {"anme": 22, "age": 23}
+demo(1, 2, 3, name=11)
+demo(*gl_dict, **gl_dict)
