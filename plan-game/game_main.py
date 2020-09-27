@@ -1,5 +1,5 @@
 import pygame
-from .plan_sprites import *
+from plan_sprites import *
 
 pygame.init()
 screen = pygame.display.set_mode((480, 700))
