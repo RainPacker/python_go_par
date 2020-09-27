@@ -1,3 +1,6 @@
+from function import mutil_table
+
+
 class Person:
     def __init__(self, name, age):
         self.name = name
@@ -6,6 +9,7 @@ class Person:
     @staticmethod
     def run():
         print("..run...")
+        mutil_table()
         pass
 
     def __str__(self):
