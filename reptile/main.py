@@ -5,6 +5,7 @@ import urllib.request
 import urllib.response
 import urllib.error
 import xlwt
+from fileDownload import requestImg
 
 import ssl
 
@@ -28,6 +29,7 @@ def save_data_excel(data_list):
     for item in data_list:
         sheet.write(row, 0, item["movie_name"])
         sheet.write(row, 1, item["img"])
+        requestImg(item["img"], item["movie_name"])
         sheet.write(row, 2, item["url"])
         row += 1
 
