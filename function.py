@@ -28,3 +28,4 @@ def sum_2_num(num1, num2):
 
 say_hello()
 sum_2_num(12, 13)
+mutil_table()
