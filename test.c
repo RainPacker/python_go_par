@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include <stdarg.h>
 #define URL "http://www.fishc.com"
 #define NAME "杨杨"
 
@@ -76,6 +77,40 @@ int count_str(){
     return count;
     
 }
+int sum(int,...);
+int sum(int n,...){
+    int i ,sum=0;
+    va_list vap;
+    va_start(vap,n);
+    for(i=0;i<n ;i++){
+        sum+=va_arg(vap, int);
+    }
+    va_end(vap);
+    return sum;
+}
+
+char *getWord(char c);
+char *getWord(char c){
+    switch (c)
+    {
+    case 'A':
+       return "Apple";
+    case 'B':
+        return "Banana";
+    default:
+       return "None";
+    }
+}
+int calulate(int (*fpsum)(int,...),int, ...);
+int calulate(int (*fpsum)(int,...),int n,...){
+     va_list args;
+     va_start(args,n); 
+     int result=(*fpsum)(n,args);
+     va_end(args);      //初始化参数指针，将ap指向第一个实际参数的地址
+    return  result;
+}
+
+
 int main()
 {
    signed int a = 10;
@@ -123,5 +158,18 @@ int main()
     point();
     count_str();
     point_arry();
+    int result=sum(3,1,2,3);
+    printf("sum(3,1,2,3)=%d\n",result);
+
+    // char s2[]=getChar('A');
+    printf("%s\n",getWord('A'));
+    char *(*fp)(char);
+    int (*fsum)(int,...);
+    fsum=sum;
+    fp=getWord;
+     printf("%s\n",(*fp)('B'));
+      printf("sum(3,3,4,5)=%d\n",(*fsum)(3,3,4,5));
+       int res= calulate(sum,3,1,2,3);
+        printf("sum(3,1,2,3)=%d\n",res);
     return 0;
 }
