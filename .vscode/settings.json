@@ -3,5 +3,9 @@
     "python.linting.pycodestyleEnabled": false,
     "python.linting.enabled": true,
     "python.linting.mypyEnabled": false,
-    "python.linting.flake8Enabled": true
+    "python.linting.flake8Enabled": true,
+    "files.associations": {
+        "__config": "cpp",
+        "ctime": "cpp"
+    }
 }

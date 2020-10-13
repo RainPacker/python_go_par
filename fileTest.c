@@ -39,9 +39,14 @@ int main(){
     FILE *fp;
     struct tm *p;
     time_t t;
+    time_t now;
+    now=time(0);
+    printf("time=%ld",now);
     time(&t);
+
     p = localtime(&t);
    printf("%d-%d-%d\n",1900+p->tm_year,1+p->tm_mon ,p->tm_mday);
+   printf("now time is :%04u-%02u-%02u %02u:%02u:%02u\n",1900+p->tm_year,1+p->tm_mon,p->tm_mday, p->tm_hour, p->tm_min, p->tm_sec);
 
       if((fp = fopen("hello.txt","w"))== NULL){
           printf("open file faile");
@@ -54,6 +59,20 @@ int main(){
         printf("%d\n",ftell(fp));
      fclose(fp);
 
-     stu_test();
+      if( (fp = fopen("pay.html","r")) == NULL){
+             fputs("error",stderr);
+         }
+         char ch;
+     while(1){
+        ch = fgetc(fp);
+        // printf("%c", ch);
+        if(feof(fp)){
+            break;
+        }
+        putchar(ch);
+
+     }
+
+    // stu_test();
     return 0;
 }
