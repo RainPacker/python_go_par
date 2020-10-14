@@ -105,16 +105,6 @@ int count_str(){
     
 }
 
-int sum(int n,...){
-    int i ,sum=0;
-    va_list vap;
-    va_start(vap,n);
-    for(i=0;i<n ;i++){
-        sum+=va_arg(vap, int);
-    }
-    va_end(vap);
-    return sum;
-}
 
 
 char *getWord(char c){
@@ -358,4 +348,15 @@ int main()
     nodeDelTest();
       
     return 0;
+}
+
+int sum(int n,...){
+    int i ,sum=0;
+    va_list vap;
+    va_start(vap,n);
+    for(i=0;i<n ;i++){
+        sum+=va_arg(vap, int);
+    }
+    va_end(vap);
+    return sum;
 }
