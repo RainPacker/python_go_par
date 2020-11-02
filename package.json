@@ -1,0 +1,19 @@
+{
+  "name": "pay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"http-server -c-1 -p 8000 ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://e.coding.net/rain_zhang/pythonpratice/python_pratice.git"
+  },
+  "author": "rain.zhang",
+  "license": "ISC"
+}
