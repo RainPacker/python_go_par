@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="app">
+    <div>slide</div>
+    <h>{{msg}}</h>
+    <h>{{person.name}}</h>
+    <div v-text="msg"></div>
+    <div v-html="htmlStr"></div>
+    <input v-model="msg">
+    <button v-on:click="test">test</button>
+    <button @click="test">test</button>
+</body>
+
+<script src="./MVue.js" ></script>
+    <script>
+        let vm= new MVue({
+            el:"#app",
+            data:{
+                msg:"hell my vue"  ,
+                person:{
+                    name:"zyy"
+                },
+                htmlStr:"<h1>自定义 vue</h1>"      
+            },
+            methods:{
+                test(){
+                    alert("ok");
+                }
+            }
+        });
+        
+        
+    </script>
+<script>
+//     var arr =[1,2,3,4,4]
+//    let total= arr.reduce((total,item)=>{
+//            console.info(total,item)
+//               total += item
+//             console.info(total)
+//            return total;
+//     },0)
+//     console.info("total",total)
+
+
+
+</script>
+</html>

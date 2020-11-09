@@ -42,3 +42,58 @@ prise.innerHTML=arr[i];
 // }
   
 }
+
+var obj={
+    "name":"zyy",
+    "age":10
+}
+var obj2={};
+//原型指向 obj 
+obj2 = Object.create(obj,{
+     sex:{
+         value:"M",
+         writable: true,
+         configurable: true,
+         enumerable: true
+         
+     }
+});
+console.log(obj2)
+
+Object.defineProperties(obj2,{
+    fullName:{
+        get:function(){
+            console.info("get....")
+            return "!!!!!|";
+        },
+        set:function(newVal){
+            console.info("set....",newVal)
+            fullName= newVal
+        }
+
+    }
+})
+console.log(obj2);
+
+function callDemo(data){
+    console.info(this,data)
+}
+callDemo(obj)
+callDemo.apply(obj,[33]);//第二个必须传入数组为参数
+callDemo.call(obj,33);//直接从第二个参数依次传入参数
+//bind绑定不会立即执行，而是返回方法
+var bar=callDemo.bind(obj);
+callDemo.bind(obj)(3333)
+console.info(bar);
+bar(obj);
+//sample
+setTimeout(function(){
+   console.log(this);
+}.bind(obj),1000);
+//es 5 array
+let arr =[2,3,5,7,8,0];
+console.log(arr.join("+"));
+//console.info(arr.toSource());
+arr.findIndex((val,index,obj)=>{
+    console.info(val,index,obj)
+})
