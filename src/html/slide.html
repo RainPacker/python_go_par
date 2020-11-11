@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body id="app">
-    <div>slide</div>
+    <div id="d1">Vue Vue</div>
     <h>{{msg}}</h>
     <h>{{person.name}}</h>
     <div v-text="msg"></div>
@@ -14,6 +14,7 @@
     <input v-model="msg">
     <button v-on:click="test">test</button>
     <button @click="test">test</button>
+
 </body>
 
 <script src="./MVue.js" ></script>
@@ -29,7 +30,7 @@
             },
             methods:{
                 test(){
-                    alert("ok");
+                     console.info(this);
                 }
             }
         });
@@ -46,6 +47,13 @@
 //     },0)
 //     console.info("total",total)
 
+let oDiv=document.querySelector("#d1");
+var str="V"
+let reg =new RegExp(str, "g");
+oDiv.innerHTML= oDiv.innerHTML.replace(reg,(searStr,$1)=>{
+    console.info(searStr,$1)
+    return `<span style="color:red">${searStr}</span>`
+})
 
 
 </script>

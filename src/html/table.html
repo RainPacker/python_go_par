@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>近两周（9月15日-9月28日）操作计划建议</title>
+</head>
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> 
+<script crossorigin="anonymous" integrity="sha384-+jvb+jCJ37FkNjPyYLI3KJzQeD8pPFXUra3B/QJFqQ3txYrUPIP1eOfxK4h3cKZP" src="https://lib.baomitu.com/vue/2.6.11/vue.js"></script>
+<body >
+    <div id="app" >
+
+        <table class="table-borded" style="text-align: center;width: 100%;" border="1px solid #ccc" cellspacing="0" cellpadding="0" >
+             <!-- <tr>
+              
+              <td>9</td> 
+               <td>10</td>
+               <td>11</td>
+               <td>12</td>
+               <td>13</td>
+               <td>14</td>
+               <td>15</td>
+               <td>16</td>
+               <td>17</td> 
+
+             </tr> -->
+            <tr>
+              
+            </tr>
+            <tr>
+             <td rowspan="2" colspan="1">标的</td>
+             <td rowspan="2" colspan="2">操作思路</td>
+             <td rowspan="2" colspan="1">操作</td>
+             <td rowspan="2" colspan="1">集团</td>
+             <td rowspan="2" colspan="1">目标价格</td>
+             <td rowspan="2" colspan="1">金额</td>
+             <td rowspan="1" colspan="5" >未来一周</td>
+             <td rowspan="1" colspan="5">未来第二周</td>
+
+            </tr>
+            
+
+        <tr>
+         <td v-for="item in thList" :key="item.tbData"  v-if="!Array.isArray(item.tbData)"      >
+             {{item.tbData}}
+         </td>
+        </tr>
+       
+
+        
+
+    
+        <!-- body -->
+        <tr v-for="(item,index) in tBody" :key="index"   >
+         
+           
+
+       
+            
+           
+            <td v-for="row in item"   :rowspan="row.trMesh==='0'?1:row.trMesh"  :colspan= "row.tbMesh==='0'?1:row.tbMesh" >
+                {{row.tbData}}     
+            </td>
+      
+          </tr>
+        
+
+
+
+
+        </table>
+        
+    </div>
+</body>
+
+<script>
+      let resData={
+    "code": 0,
+    "message": "成功",
+    "content": {
+        "result": "0",
+        "data": {
+            "dataTime": "近两周（9月15日-9月28日）操作计划建议",
+            "tableTr": [
+                {
+                    "tbNum": "1",
+                    "tbData": [],
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "2",
+                    "tbData": [],
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "3",
+                    "tbData": [],
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "4",
+                    "tbData": [],
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "5",
+                    "tbData": [],
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "6",
+                    "tbData": [],
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "7",
+                    "tbData": [],
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "8",
+                    "tbData": "2020/10/15",
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "9",
+                    "tbData": "2020/9/16",
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "10",
+                    "tbData": "2020/9/19",
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "11",
+                    "tbData": "2020/9/20",
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "12",
+                    "tbData": "2020/9/21",
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "13",
+                    "tbData": "2020/9/22",
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "14",
+                    "tbData": "2020/9/23",
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "15",
+                    "tbData": "2020/9/26",
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "16",
+                    "tbData": "2020/9/27",
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                {
+                    "tbNum": "17",
+                    "tbData": "2020/9/28",
+                    "trMesh": "0",
+                    "tbMesh": "0"
+                },
+                [
+                    {
+                        "tbNum": "1",
+                        "tbData": "有间公司1",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "2",
+                        "tbData": "逢低回补前期高抛战略仓位",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "3",
+                        "tbData": "前期高位（230附近）已卖出10万股，待股价跌到180以下买回20万股",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "4",
+                        "tbData": "买入",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "5",
+                        "tbData": "A",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "6",
+                        "tbData": "100",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "7",
+                        "tbData": "20",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "8",
+                        "tbData": "20.00",
+                        "trMesh": "0",
+                        "tbMesh": "10"
+                    }
+                ],
+                [
+                    {
+                        "tbNum": "1",
+                        "tbData": "有间公司2",
+                        "trMesh": "4",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "2",
+                        "tbData": "逢低吸纳，越跌越买",
+                        "trMesh": "2",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "3",
+                        "tbData": "【】以下逢低吸纳，越跌越买，增持约【】亿元",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "4",
+                        "tbData": "买入",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "5",
+                        "tbData": "B",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "6",
+                        "tbData": "100",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "7",
+                        "tbData": "20",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "8",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "9",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "10",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "11",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "12",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "13",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "14",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "15",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "16",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "17",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    }
+                ],
+                [
+                    {
+                        "tbNum": "3",
+                        "tbData": "【】以下逢低吸纳，结合票据转出，满足要求",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "4",
+                        "tbData": "买入",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "5",
+                        "tbData": "C",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "6",
+                        "tbData": "100",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "7",
+                        "tbData": "-",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "8",
+                        "tbData": "股本比例【】",
+                        "trMesh": "0",
+                        "tbMesh": "10"
+                    }
+                ],
+                [
+                    {
+                        "tbNum": "2",
+                        "tbData": "均衡建仓，越跌越买",
+                        "trMesh": "2",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "3",
+                        "tbData": "根据股价走势均衡买入【】亿元",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "4",
+                        "tbData": "买入",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "5",
+                        "tbData": "D",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "6",
+                        "tbData": "100",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "7",
+                        "tbData": "20",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "8",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "9",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "10",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "11",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "12",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "13",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "14",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "15",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "16",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "17",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    }
+                ],
+                [
+                    {
+                        "tbNum": "3",
+                        "tbData": "【】以下逢低吸纳，越跌越买，增持约【】亿元",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "4",
+                        "tbData": "买入",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "5",
+                        "tbData": "E",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "6",
+                        "tbData": "100",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "7",
+                        "tbData": "20",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "8",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "9",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "10",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "11",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "12",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "13",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "14",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "15",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "16",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    },
+                    {
+                        "tbNum": "17",
+                        "tbData": "2.00",
+                        "trMesh": "0",
+                        "tbMesh": "0"
+                    }
+                ]
+            ]
+        },
+        "resultMessage": "成功"
+    }
+}
+
+   let vm= new Vue({
+       el:"#app",
+       data:{
+           trList:resData.content.data.tableTr,
+           thList:[],//表头数据 
+           tBody:[],//表身
+           count:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+       },
+       created(){
+           console.log("created....")
+           this.getThead();
+       },
+       methods:{
+           //取值表头
+           getThead(){
+            this.trList.forEach(element => {
+              console.log( Array.isArray(element));
+              if(Array.isArray(element)){
+                  this.tBody.push(element);
+              }else{
+                  this.thList.push(element);
+              }
+          });
+           }
+          
+
+       }
+   });
+
+</script>
+</html>
+
+

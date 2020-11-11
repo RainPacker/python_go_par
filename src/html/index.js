@@ -97,3 +97,31 @@ console.log(arr.join("+"));
 arr.findIndex((val,index,obj)=>{
     console.info(val,index,obj)
 })
+
+
+let a = 1;
+let ob = {
+a:2,
+sayHi:()=>{
+  console.log("sayHai");
+console.log(this,this.a)
+}
+}
+ob.sayHi();
+
+//js 正则
+let str = "abccke20000yyy999";
+//使用 es6 查询所有字符 
+ let num= [...str].filter(a=> !Number.isNaN(parseInt(a))).join("")
+console.log("num=>",num);
+//使用正则查询 
+console.log(str.match(/\d/g).join(""))
+
+//正则字变量
+let hd="hdstr.com";
+let testStr= 'hd';
+console.log(/hd/.test(hd));
+console.log(eval(`/${testStr}/`).test(hd))
+//使用对象创建正则
+let reg= new RegExp(testStr,"g");
+console.log(reg.test(hd))

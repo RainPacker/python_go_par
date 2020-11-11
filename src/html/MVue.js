@@ -170,3 +170,117 @@ class MVue {
 
 }
 
+
+
+queryString = (url = '') => {
+    const qs = {}
+    url.replace(/([^?=&]+)(=([^&]*))?/g, ($0, $1, $2, $3) => {
+        console.info($0,$1,$2,$3)
+      if ($3 === undefined) {
+        return
+      }
+      try {
+        qs[$1] = decodeURIComponent($3)
+      } catch (e) {
+        qs[$1] = $3
+      }
+    })
+    return qs
+  }
+
+  console.info(queryString("www.badi.com?aa=b&&c=799&9=1"))
+
+  let reg2=/[123456]/
+  console.log(reg2.test("7"))
+let reg3=/(12|23)/
+console.log(reg3.test("234"));
+
+let reg4=/\d/g;
+console.log("123456".match(reg4));
+
+let  str2="200353453Wd_-&4";
+console.log("=============")
+console.log(str2.match(/\d/));
+console.log(str2.match(/\d+/));
+console.log(str2.match(/\w/));
+console.log(str2.match(/\w+/g));
+console.log(str2.match(/\W/));
+console.log(str2.match(/\W+/g));
+console.log(str2.match(/\D/g));
+console.log(str2.match(/\D+/));
+console.log(str2.match(/\D+/g));
+
+console.log("=============")
+let str3=`432432423rewre@^^^454
+  werwer4w3555*
+`
+console.log(str3.match(/./));
+console.log(str3.match(/./g));
+console.log(str3.match(/.+/));
+console.log(str3.match(/.+/g));
+//忽略换行
+console.log(str3.match(/.+/s));
+console.log("=============")
+let str4=`
+ <span>
+    12423jowieroruoui4u334234jsdj@*@*
+    </span>
+`;
+console.log(str4.match(/<span>[\s\S]+<\/span>/))
+console.log(str4.match(/\s/g))
+console.log(str4.match(/\s+/))
+console.log(str4.match(/\s+/g))
+console.log("===========")
+let str5='UUuUNNNnnnnu';
+console.log(str5.match(/u/i));
+console.log(str5.match(/u/gi));
+console.log(">>>>>>>>>>>>>>>>")
+let str6=`
+   #1 js, 200 # 
+   #2 php, 210 #
+   #3 react, 500 # 哈哈
+   #4 vue, 100 #
+   #5 python, 90 #
+   #6 c++, 100 #
+   #7 java, 300 #
+   #8 c, 300 #
+`
+
+//匹配所有行 获取 name ,价格 并返回为 obj
+let arrs=str6.match(/^\s*#\d+\s+.+\s+#$/gm);
+console.log(arrs)
+arrs=arrs.map((item=>{
+   v= item.replace(/\s*#\d+\s*/,"").replace(/\s+#/,"");
+   console.log(v);
+   let [name,price]= v.split(",");
+   console.log(name,price)
+   name=name.replace(/\s*/,"");
+   price=price.replace(/\s*/,"");
+   return {name,price};
+}))
+console.log(JSON.stringify(arrs,null,2))
+console.log("+++++++++++++++")
+
+let srtr7 ='sabst.erw, 加油打工人';
+//
+console.log(srtr7.match(/\p{L}/gu));
+//逗号
+console.log(srtr7.match(/\p{P}/gu));
+//汉字
+console.log(srtr7.match(/\p{sc=Han}+/gu));
+console.log(srtr7.match(/\p{sc=Han}/gu));
+
+console.log("***********")
+let str8= "jiayoudagongren...";
+
+console.log(str8.match(/\w/))
+console.log(str8.match(/\w/g))
+let reg8= /\w/g ;
+//console.log(reg8.exec(str8));
+
+while ((res= reg8.exec(str8))){
+    console.log(reg8.lastIndex, res);
+}
+
+
+
