@@ -229,10 +229,11 @@
 </div>
     `
     //console.info(str)
-    let reg =/<div class="title">\n<a.*target="_blank">\s\S(\w)\s\S<\/a>/;
+    let reg =/<div class="title">[\s\S]+?(<img[\s\S]+?src="([\s\S]+?)"[\s\S]+?>)[\s\S]+?<\/a>/;
 
    result = reg.exec(str)
-    console.info(result)
+    console.log(result[2])
+    console.dir(result)
 
 </script>
 
