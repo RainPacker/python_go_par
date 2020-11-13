@@ -11,12 +11,13 @@
     <h>{{person.name}}</h>
     <div v-text="msg"></div>
     <div v-html="htmlStr"></div>
-    <input v-model="msg">
+    <input v-model="msg" >
     <button v-on:click="test">test</button>
     <button @click="test">test</button>
 
 </body>
 
+<script src="./Observer.js" ></script>
 <script src="./MVue.js" ></script>
     <script>
         let vm= new MVue({
@@ -31,6 +32,8 @@
             methods:{
                 test(){
                      console.info(this);
+                     this.$data.htmlStr= '<h2>学习自定义 vue</h2>';
+                     this.msg="我爱学习 vue";
                 }
             }
         });

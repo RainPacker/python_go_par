@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            width: 200vh;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #34495e;
+        }
+        div {
+            font-size: 5em;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #9b59b6;
+        }
+        div>span {
+            display: inline-block;
+            position: relative;
+
+        }
+        .color{
+            animation-name: color;
+            animation-duration: 1s;
+            animation-iteration-count: 2;
+            animation-timing-function: linear;
+            animation-direction: alternate;
+        }
+        @keyframes color {
+            50% {
+                color: #f1c40f;
+                transform: scale(2);
+            }
+            100%{
+                color: #e74c3c;
+                transform: scale(0.5);
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <div>你好打工人!</div>
+</body>
+<script>
+       let oDiv = document.querySelector("div");
+       let text = oDiv.textContent;
+
+       [...text].reduce((pre,cur,index)=>{
+           pre == index && (oDiv.innerHTML ="");
+           let span = document.createElement("span");
+           span.innerHTML = cur;
+           oDiv.appendChild(span);
+           span.addEventListener("mouseover",function(){
+               this.classList.add("color");
+           })
+           span.addEventListener("animationend",function(){
+                    this.classList.remove("color")
+           })
+       },0)
+
+</script>
+
+</html>

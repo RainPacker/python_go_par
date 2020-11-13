@@ -1,4 +1,16 @@
 const complieUtils={
+    getContextVal(expr,vm){
+      console.log(expr);
+      exprN =expr.replace(/\{\{(.+?)\}\}/, (...args)=>{
+          return this.getValue(args[1],vm);
+      })
+
+    },
+    setValue(expr, vm,inputVal){
+      return  expr.split(".").reduce((data,current)=>{
+         data[current] = inputVal;
+    },vm.$data)
+    },
     getValue(expr,vm){
        return  expr.split(".").reduce((data,current)=>{
             return data[current]
@@ -10,24 +22,44 @@ const complieUtils={
            if(expr.indexOf("{{") !== -1){//{{person.name}}
                console.log(expr);
                exprN =expr.replace(/\{\{(.+?)\}\}/, (...args)=>{
-                   console.log(args);
+                   console.log("text...",args);
+                   new Watcher(vm,args[1],()=>{
+                    this.updater.textUpdater(node,this.getContextVal(expr,vm));
+                  })
 
-                   return args[1];
+                   return this.getValue(args[1],vm);
                })
                value=this.getValue(exprN, vm);
                this.updater.textUpdater(node,value)
            }else{
             value=this.getValue(expr, vm);
+            new Watcher(vm,expr,(newVal)=>{
+              console.info("updateText",newVal)
+              this.updater.textUpdater(node,newVal);
+            })
             this.updater.textUpdater(node,value)
            }
             
        },
        html(node,expr,vm){
         let value=this.getValue(expr, vm);
+        new Watcher(vm,expr,(newVal)=>{
+          console.info("updateHtml",newVal)
+          this.updater.htmlUpdater(node,newVal);
+        })
         this.updater.htmlUpdater(node,value)
        },
        model(node,expr,vm){
         let value=this.getValue(expr, vm);
+        new Watcher(vm,expr,(newVal)=>{
+          this.updater.modelUpdater(node,newVal);
+        })
+//绑定事件
+          node.addEventListener("input",(e)=>{
+            console.log(e)
+            this.setValue(expr, vm, e.target.value);
+          })
+
         this.updater.modelUpdater(node,value)
        },
        on(node,expr,vm,eventName){
@@ -160,12 +192,26 @@ class MVue {
              if(this.$el){
                  console.log("init.....")
                  //1实现数据观察者
+                 new Observer(this.$data);
                  //2.实现指令解析器
                  new Compile(this.$el,this);
+                 this.proxyData(this.$data);
 
              }
              
-       }   
+       }  
+       proxyData(data){
+         for(const key in data){
+           Object.defineProperty(this,key,{
+             get(){
+               return data[key]
+             },
+             set(newVal){
+               data[key] = newVal;
+             }
+           })
+         }
+       } 
        
 
 }

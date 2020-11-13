@@ -1,3 +1,4 @@
+
 window.onload=function (){
   var canvas =document.getElementById("canvas");
  var ctx= canvas.getContext("2d");
@@ -305,3 +306,182 @@ let urls =`
 let reg19 =/https?:\/\/(\w+)?(?<!qq)\..+?(?=\/)/ig ;
 console.log(urls.match(reg19));
 
+//symbol 的使用
+let sy =Symbol("zzzzz");
+console.info(typeof sy);
+console.info(sy.description);
+let cmf =Symbol.for("zyy");
+console.log(Symbol.keyFor(cmf));
+
+let obj_sym= {
+    [sy]:"symbol 属性",
+    name:"zyy"
+}
+console.log(obj_sym[sy]);//key 为 Symbol 类型的 key  相当于私有
+console.log("_______________________")
+//无法获取 Symbol 类型的属性
+for (const key in obj_sym) {
+    console.info(key);
+   
+}
+console.log("_______________________")
+//无法获取 Symbol 类型的属性
+for (const iterator of Object.keys(obj_sym)) {
+    console.info(iterator)
+}
+//使用Reflect.ownKeys 获取所用 key 包括 Symbol 类型的 key
+console.log("_______________________")
+for (const iterator of Reflect.ownKeys(obj_sym)) {
+        console.info(iterator);
+}
+
+let user1 = {
+    name:"李四",
+    key :Symbol()
+}
+let user2 = {
+    name:"李四",
+    key: Symbol()
+}
+
+let grade = {
+    [user1.key]:{
+        js:90,
+        java:100
+    },
+    [user2.key]:{
+        js:90,
+        java:88
+    }
+}
+console.log(grade)
+console.log(grade[user1.key])
+console.log(grade[user2.key])
+console.log("_______________________")
+let [name, ...args] = ["zyy","zhang","yangyang"];
+
+console.log(args);
+console.log(...args);
+
+let arr_1 = [111,222,333,444];
+//arr_1.push(22,33);//从后面插入
+arr_1.unshift(0);//从前面插入一个新值
+
+arr_1.pop();
+arr_1.shift();
+console.table(arr_1);
+
+let arr_2 = [111,222,2,444];
+function array_move(array,from, to){
+    if(from<0|| to> array.length){
+        console.error("参数错误");
+        return ;
+    }
+    let arr_new = [...array];
+      let item = arr_new.splice(from,1);
+      arr_new.splice(to, 0, ...item);
+      return arr_new;
+}
+
+console.log(arr_2.includes(111));
+console.table(array_move(arr_2,1,3));
+arr_2.findIndex(item=>{
+    return item ==222
+})
+arr_2.find(item=>{
+    return item ==222
+})
+
+arr_2.sort((a,b)=>{
+    //-1 从小到大 1 从大到小
+    return a-b;
+})
+//every() 方法测试一个数组内的所有元素是否都能通过某个指定函数的测试。它返回一个布尔
+let re1 = arr_2.every(item=>{
+    return item>2;
+})
+//some() 方法测试数组中是不是至少有1个元素通过了被提供的函数测试。它返回的是一个
+let re2 = arr_2.some(item=>{
+    return item>2;
+})
+console.log(re1, re2)
+console.log(arr_2.entries())
+for (const item of arr_2.entries()) {
+    console.log(item)
+    
+}
+let res3 = arr_2.filter((item)=>{
+    return item>10;
+})
+console.log(res3)
+//map() 方法创建一个新数组，其结果是该数组中的每个元素是调用一次提供的函数后的返回值。
+let res4 = arr_2.map((item,index,arr)=>{
+    console.log(item, index, arr);
+    return item+1;
+})
+console.log(res4)
+
+     let obj_t = {a:"zz",b:11};
+     let t2={
+         a:"yyy",
+         ...obj_t
+     }
+     console.log(t2)
+console.log("_______________________")
+//reduce() 方法对数组中的每个元素执行一个由您提供的reducer函数(升序执行)，将其结果汇总为单个返回值。
+let res5 = arr_2.reduce((pre,cur,index,arr)=>{
+    console.log(pre,cur,index);
+    return pre+cur;
+})
+console.log(res5)
+//返回数组中最大的值
+let res6=arr_2.reduce((pre,vale)=>{
+    return pre>vale?pre:vale
+})
+console.log("maxNumer",res6)  
+
+let cart = [
+    {name:"js",price:100},
+    {name:"xm",price:190},
+    {name:"xm",price:190},
+    {name:"huawei",price:290},
+    {name:"huawei",price:290},
+    {name:"iphone",price:1000},
+    {name:"pythos",price:20},
+ 
+
+]
+//查询数据cart中 中价格最贵的商品
+let res7 = cart.reduce((pre,item,index)=>{
+     if(pre.price > item.price){
+         return pre;
+     }else{
+         return item;
+     }
+})
+//获取总价
+let res8 = cart.reduce((total,item)=>{
+    return total+ item.price;
+},0)
+console.log("totalPrice",res8);
+//获取金额大于200的所有商品名称
+let pro = cart.reduce((arr,item)=>{
+    if(item.price > 200 ){
+        arr.push(item);
+    }
+    return arr;
+},[]).map(item=>item.name)
+console.table(pro)
+
+//去除重复的商品
+let pro_dist = cart.reduce((arr,cur)=>{
+      let find =arr.find(item=>{
+          if(item.name == cur.name){
+              return item;
+          }
+      });
+      if(!find) arr.push(cur)
+      return arr;
+       
+},[])
+console.table(pro_dist)
