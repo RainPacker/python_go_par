@@ -89,7 +89,7 @@ console.info(bar);
 bar(obj);
 //sample
 setTimeout(function(){
-   console.log(this);
+  // console.log(this);
 }.bind(obj),1000);
 //es 5 array
 let arr =[2,3,5,7,8,0];
@@ -485,3 +485,320 @@ let pro_dist = cart.reduce((arr,cur)=>{
        
 },[])
 console.table(pro_dist)
+console.log("____________set___________")
+let set =new Set(["1",2,4])
+
+set.add("bbbb")
+set.add("bbbb")
+console.log(set.add("aaa"))
+console.log(set.delete("aaa"))
+console.log(set.has(2))
+console.log(set.size)
+console.table(set)
+
+//转成数组
+console.log(Array.from(set));
+console.log([...set])
+console.log(set.values());
+//遍历1 使用 forEach
+set.forEach((key,value)=>{
+    console.log(key, value);
+});
+//遍历2
+for (const item of set) {
+    console.log(item);
+    
+}
+
+//
+let set_a = new Set([1,2,3,4,5,23]);
+let set_b = new Set([3,4,5,6,23]);
+//并集
+console.log("set_a与set_b 的并集",new Set([...set_a,...set_b])) 
+//差集
+console.log("set_a与set_b 的差集",new Set(
+
+    [...set_a].filter((item)=>{
+            return !set_b.has(item)
+    })
+))
+//交集
+console.log("set_a与set_b 的交集",new Set(
+
+    [...set_a].filter((item)=>{
+            return set_b.has(item)
+    })
+))
+
+
+console.log("____________weakset___________")
+let wset = new WeakSet();
+let obj_demo = {
+    name:"zyy"
+}
+let obj_demo1 ={};
+wset.add(obj_demo);
+wset.add(obj_demo1);
+console.log(wset.has(obj_demo1))
+console.log(wset.delete(obj_demo1));
+console.log(wset)
+//weakSet 没有 size 等可用的迭代方法
+console.log("____________map___________")
+let map =new Map([["key","value"],[1,2]]);
+console.log(map);
+map.set("3","zhang")
+map.set({},4);
+console.log(map);
+console.log(map.size);
+
+
+console.log("____________map___________")
+
+let sum =[1,2,3,4,5,6,].reduce((a,b)=>a+b)
+console.log(sum)
+//计算阶乘
+function factory(num){
+      console.info(arguments)
+    return num==1?1: num* factory(--num);
+}
+console.log(factory(5))
+
+//
+
+console.log("____________this___________")
+
+let lesssons = {
+     list: ["js","php","java"],
+     show: function(){
+         console.log(this);
+         this.list.map(function(item){
+             console.log("map",this,item);
+         })
+     }
+}
+ lesssons.show();
+
+
+ console.log("_______________________")
+ //apply call  bind
+function User (name){
+    console.log(this);
+       this.name= name;
+}
+let lisi = new User("李四");
+console.log(lisi);
+console.log("__________lissi_____________")
+console.dir(User)
+let hdr = { url:"www.houduren.com"}
+// call 使用普通参数
+User.call(hdr,"zhangsan");
+//apply 使用数组传参，
+User.apply(hdr,["zhangsan"]);
+console.log(hdr);
+User.bind(hdr,"zhangsanfen")();
+console.log(hdr);
+(function(name){
+    console.log("立即执行函数",this,name)
+})("zhangyang")
+
+
+let cart_new = [
+    {name:"js",price:100,click:99},
+    {name:"xm",price:190,click:9},
+    {name:"huawei",price:290,click:9},
+    {name:"iphone",price:1000,click:88},
+    {name:"pythos",price:20, click:87},
+ 
+
+]
+//使用闭包比较大小
+function order(filed, type="asc"){
+    return function(a,b){
+        if(type == "asc") return a[filed]>b[filed]?1:-1;
+        return a[filed]>b[filed]?-1:1;
+    }
+}
+
+//按 click 排序
+console.table(cart_new.sort(order("click")));
+//按 price 排序 
+console.table(cart_new.sort(order("price","desc")));
+
+
+//obj
+let user = {
+    name:"zyy",
+    age:29,
+    fa:{
+        addr:"addr"
+    }
+}
+let {name:name_,age:age_,fa:{addr}} = user;
+console.log(name_,age_ ,addr);
+console.log(Object.freeze(user))
+user.name ='zhang'
+console.log(user)
+//obj.assign 如果目标对象中的属性具有相同的键，则属性将被源对象中的属性覆盖。后面的源对象的属性将类似地覆盖前面的源对象的属性。
+
+//Object.assign 方法只会拷贝源对象自身的并且可枚举的属性到目标对象。该方法使用源对象的[[Get]]和目标对象的[[Set]]，所以它会调用相关 getter 和 setter。
+//因此，它分配属性，而不仅仅是复制或定义新的属性。如果合并源包含getter，这可能使其不适合将新属性合并到原型中。为了将属性定义（包括其可枚举性）复制到原型，应使用
+const target = { a:1,b:2, c:3,d:5};
+const source = { d:4,e:5};
+console.log(Object.assign(target, source)); 
+
+const v1 = "abc";
+const v2_ = true;
+const v3 = 10;
+const v4 = Symbol("foo")
+
+const obj_ = Object.assign({}, v1, null, v2_, undefined, v3, v4); 
+// 原始类型会被包装，null 和 undefined 会被忽略。
+// 注意，只有字符串的包装对象才可能有自身可枚举属性。
+console.log(obj_); // { "0": "a", "1": "b", "2": "c" }
+
+//Obj.create()
+let user_n = {
+    isHuman: false,
+    get info(){
+        return this.isHuman;
+    },
+    printIntroduction: function() {
+      console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+    },
+    //自定义json 序列化
+    toJSON: function(){
+            return {
+                isHuman:this.isHuman,
+                name_:this.name
+            }
+    }
+
+}
+let me = Object.create(user_n);
+me.name = 'Matthew'; // "name" is a property set on "me", but not on "person"
+me.isHuman = true; // inherited properties can be overwritten
+
+console.log(me)
+console.log(JSON.stringify(me));
+console.log(Object.keys(user_n));
+console.log(Object.values(user_n));
+console.log(Object.entries(user_n));
+for (const [key,value] of  Object.entries(user_n)) {
+    console.log(key, value);
+    
+}
+//深拷贝
+function copy(object){
+    let res= object instanceof Array?[]: {};
+    for (const [key,v] of Object.entries(object)) {
+         res[key] = typeof v ==="object"? copy(v): v;
+    }
+    // for (const key in object) {
+    //     res[key] =  typeof object[key]==="object"? copy(obect[key]): object[key]; 
+    // }
+    return res;
+}
+let you =copy(me);
+you.name ="you"
+
+console.log(JSON.stringify(me,null,2))
+console.log(JSON.stringify(Object.getOwnPropertyDescriptor(you,"name"),null,2))
+console.log(JSON.stringify(Object.getOwnPropertyDescriptors(you),null,2))
+
+Object.defineProperty(you,"age",{
+     value: 19,
+     writable:false,
+     enumerable:false,
+     configurable: false
+})
+console.log(you)
+
+///proxy
+let proxy =new Proxy(you,{
+    get(obj,property){
+        console.log("...get...")
+        return obj[property];
+    },
+    set(obj,property,value){
+        console.log("...set...")
+        ob[property] = value;
+        return true;
+    }
+});
+you.__proto__.test = function(){
+    console.log("test")
+}
+console.log(proxy);
+console.log(proxy.name);
+
+let obj_1=new Object();
+obj_1.name= "zzzz"
+console.dir(obj_1)
+
+
+//原型
+
+console.log("__________js 原型_____________")
+let arr_ = [];
+console.log(arr_.__proto__ == Array.prototype);
+let str_ = '';
+console.log(str_.__proto__ == String.prototype)
+let bool = true;
+console.log(bool.__proto__ == Boolean.prototype)
+let ob_ = {};
+console.log(ob_.__proto__ == Object.prototype)
+let reg_ =/\d+/g
+console.log(reg_.__proto__ == RegExp.prototype)
+
+
+let hd2 = {name:"hd"};
+let parent = {name:"parent", show(){console.log(this.name)}};
+//让 hd 继承 parent
+Object.setPrototypeOf(hd2,parent);
+console.dir(hd2)
+
+console.log(Object.getPrototypeOf(hd2))
+
+function Demo(name){
+    this.name= name;
+}
+let dem = new Demo();
+
+function createByObject(obj,...ars){
+   const constructor = Object.getPrototypeOf(obj).constructor ;
+   console.log(constructor);
+   return new constructor(...args);
+}
+console.log(createByObject(dem, "zhangsan"))
+
+
+function A() {}
+let a_  = new A();
+console.log(a_ instanceof A);
+let a1= {name:"a1"}
+let b1 ={name:"b",age:1};
+Object.setPrototypeOf(a1,b1);
+//检测b1 是否在 a1 的原型链上
+console.log(b1.isPrototypeOf(a1));
+console.log("age" in a1);
+console.log(a1.hasOwnProperty("age"));
+//使用 call 、apply 借用原型链方法
+let zy = [1,2,3,4,5,2];
+console.log("max of zy:",Math.max.call(null,...zy));
+let xy = {
+    lessons:{ sj:80,java:99, python: 88}
+
+}
+//借用 Math.max 方法找到xy 中分数中最高的分数
+console.log(Object.values(xy.lessons));
+console.log(Math.max.apply(null,Object.values(xy.lessons)));
+
+
+
+let buttons = document.querySelectorAll("button");
+console.log(buttons);
+Array.prototype.filter.call(buttons,item=>{
+    console.log(item);
+    item.innerHTML ="X"+item.innerHTML
+    console.log(item.innerHTML);
+})

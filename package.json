@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"http-server -c-1 -p 8000 ./src"
+    "dev": "http-server -c-1 -p 8000 ./src"
   },
   "repository": {
     "type": "git",
