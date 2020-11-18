@@ -793,8 +793,6 @@ let xy = {
 console.log(Object.values(xy.lessons));
 console.log(Math.max.apply(null,Object.values(xy.lessons)));
 
-
-
 let buttons = document.querySelectorAll("button");
 console.log(buttons);
 Array.prototype.filter.call(buttons,item=>{
