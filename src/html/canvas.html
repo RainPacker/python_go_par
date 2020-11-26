@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Index </title>
 </head>
 <style>
     .prize {
@@ -32,4 +32,66 @@
    
 </body>
 <script src="./index.js"></script>
+
+<script type="module">
+    //混合导入
+   import  * as a  from "./es6.js";
+   
+   console.log(a);
+   console.log(a.hdr);
+   console.log(a.default());
+  // console.log(hdr)
+
+  //按需加载
+  import("./es6.js").then(({hdr})=>{
+      console.log(hdr)
+  });
+  let p=new Promise((reslove,reject)=>{
+           //reject("失败了")
+           reslove("成功了小桂子")
+  } ).then(su=>{console.log(su)},faile =>{
+      console.log(faile);
+  })
+  console.log(p.then(res=>{ 
+console.log(res)
+  }))
+
+  //
+  async function hdr(){
+      console.log("hdr is working....")
+        let a = await new Promise((reslove)=>{
+            setTimeout(()=>{
+                reslove("a");//如果 a 不处理返回结果 那么 b 将一直挂起
+            },2000)
+                
+        });
+        console.log(a)
+        let b = await new Promise(reslove=>{
+            reslove('b')
+        })
+        console.log(b)
+  }
+  console.dir(hdr());
+   
+  //模拟实现 sleep 
+   async function sleep(delay=2000){
+         
+       return new Promise(reslove=>{
+           setTimeout(()=>{
+               reslove();
+           },delay)
+       })
+
+   }
+
+   async function show(){
+       for (const item of ["打工人","屌丝","小米"]) {
+           await sleep(2000);//模拟实现 sleep 
+           console.log(item);
+       }
+   }
+   show();
+
+
+</script>
 </html>

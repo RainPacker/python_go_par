@@ -800,3 +800,77 @@ Array.prototype.filter.call(buttons,item=>{
     item.innerHTML ="X"+item.innerHTML
     console.log(item.innerHTML);
 })
+
+//js 继承 
+function USER(name, age) {
+    this.name= name;
+    this.age = age;
+
+}
+USER.prototype.show= function(){
+     console.log(this.name, this.age)
+}
+
+
+function Admin (...args){
+     ///调用父类的构造方法
+     USER.apply(this, args);
+}
+//让 admin 继承 user
+Admin.prototype = Object.create(USER.prototype);
+//Admin.prototype.constructor =Admin;
+Object.defineProperty(Admin.prototype,"constructor",{
+    value: Admin,
+    enumerable: false
+})
+let xj =new Admin("zy",19);
+console.log(xj)
+//继承的封装方法
+function extend (sub, sup){
+    sub.prototype = sup.prototype;
+    Object.defineProperty(sub,"constructor",{
+        value: sub,
+        enumerable: false 
+    })
+}
+//通过对象工厂 方法派生对象
+function admin (name,age){
+    let instance = Object.create(USER.prototype);
+    USER.call(instance,name,age)
+    return instance;
+}
+let hdr_ = admin("zhangyangyang",22);
+console.log(hdr_)
+
+class B  extends Admin {
+    //静态属性
+    static URL ="http://www.houdunren.com";
+    constructor(name, age) {
+        super(name, age);
+    }
+    get url (){
+        return this.URL;
+    }
+    show(){
+
+    }
+    static create(...args){
+            return new this(...args);
+    }
+}
+console.dir(B)
+let xdd = new B("zyyyy",18)
+console.log(xdd)
+console.log(xdd.URL)
+console.log(B.URL)
+B.URL ="xxxxx";
+console.log(B.URL)
+console.log("______________________________")
+var maxCallback = ( acc, cur ) =>{ 
+      console.log(acc,cur);
+     return Math.max( acc.x, cur.x )};
+var maxCallback2 = ( max, cur ) => Math.max( max, cur );
+
+// reduce() 没有初始值  直接取值数组中第一个放入累加器中
+console.log([ { x: 2 }, { x: 22 }, { x: 42 } ].reduce( maxCallback )); // NaN
+console.log([ { x: 2 }, { x: 22 }            ].reduce( maxCallback )); // 22
