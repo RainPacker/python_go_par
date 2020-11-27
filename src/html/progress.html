@@ -53,5 +53,26 @@
 
      changeProgress();
 
+
+     class Progress {
+         constructor(item){
+             this.item =item;
+
+         }
+         //等同 promise  自动封装成 promise 对象
+         then(reslove,reject){
+            setTimeout(() =>{reslove("class 中的 then 。。。");},1000)
+         }
+     }
+
+     async function get(){
+       let a =   await new Progress();
+       console.log(a);
+       throw Error("error")
+     }
+     get().catch(err=>{
+         console.log(err)
+     });
+
 </script>
 </html>
