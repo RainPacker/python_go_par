@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
+  <title>Citcon's Coffee Roasters Shopping Cart</title>
+  
+<link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+<!-- <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16"> -->
+<link rel="manifest" href="img/manifest.json">
+<link rel="mask-icon" href="img/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  
+
+<div id="logo-header">
+	<!-- <a href="http://www.citcon-inc.com/"><img src="img/header-logo.png" alt="http://www.citcon-inc.com"></a> -->
+</div>
+
+<h1>Citcon's Coffee Roasters Shopping Cart</h1>
+<div class="product" style="height:0;width:0;padding:0;margin:0;position:absolute;top:-50px;right:30px">
+  <!-- <div id="login" class="remove-product" style="position:absolute;right:0;top:100px;background-color:#105df8;width:max-content">Login</div> -->
+</div>
+<div class="shopping-cart">
+	
+  
+	
+	
+	 
+
+	
+
+
+	  <div class="totals">
+		<div class="totals-item">
+		  <label>Subtotal</label>
+		  <div class="totals-value" id="cart-subtotal">29.99</div>
+		</div>
+		<div class="totals-item">
+		  <label>Tax (5%)</label>
+		  <div class="totals-value" id="cart-tax">1.50</div>
+		</div>
+		<div class="totals-item">
+		  <label>Shipping</label>
+		  <div class="totals-value" id="cart-shipping">15.00</div>
+		</div>
+		<div class="totals-item totals-item-total">
+		  <label>Grand Total</label>
+		  <div class="totals-value" id="cart-total">46.49</div>
+		</div>
+	  </div>
+	  <button class="checkoutUPOP"></button>
+		  <button class="checkoutWechat"></button>
+        	  <button class="checkoutAlipay"></button>
+        	  <!-- <button class="checkoutCC"></button> -->
+	  <div class="paywith"><h1>Pay With</h1></div>
+	  
+	
+</div>
+
+<form action="pay.php" method="POST" id="payform">
+	<input type="hidden" name="transaction_id" value="test1234"/>
+	<input type="hidden" name="payment_method" id="payment_method"/>
+	<input type="hidden" name="amount" id="amount"/>
+  <input type="hidden" name="user_token" id="user_token"/>
+</form>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <!-- <script src="js/index.js"></script> -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-87245870-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+
+function isWeiXin(){
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.indexOf('micromessenger') != -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+                    "SymbianOS", "Windows Phone",
+                    "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    window.onload =function(){
+        let isPc = IsPC();
+        let inWeixin = isWeiXin();
+        alert(isPc);
+        alert(inWeixin);
+    }
+
+</script>
+</body>
+</html>
