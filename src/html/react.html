@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Pratice</title>
+</head>
+<body>
+  <div id="app"></div>
+  <div id="app2"></div>
+  <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<!-- 生产环境中不建议使用 -->
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script type="text/babel">
+  console.log("#####");
+   class MyCmponent extends React.Component {
+          state ={
+                msg:"hello react",
+                val:''
+         }
+         myref=React.createRef();
+        // static propTypes={
+        //       title:PropTypes.string.isRequired
+        //  }
+         static defaultProps= {
+           name:"zyy"
+         }
+         handleClick= ()=>{
+           console.log(this.myref);
+           console.log(this.input1);
+         }
+         //普通写法
+        //  setVal=(e)=>{
+        //   let name=e.target.name;
+        //    let val= e.target.value;
+
+        //    this.setState({
+        //      [name]: val 
+        //    });
+        //  }
+        //高阶写法
+         setVal=(dataName)=>{
+          
+           return (e)=>{
+              let val =e.target.value;
+            this.setState({
+             [dataName]: val 
+           });
+           }
+         
+         }
+       
+         render(){
+           const {title}=this.props;
+           return (
+             <div>
+              <input ref={this.myref} name="val"  onChange={this.setVal('val')}/>
+              <input ref={c=>this.input1=c}  name="val1" value={this.state.val}/>
+              <h1 onClick={this.handleClick}>{title?title:this.state.msg}{this.state.val}</h1>
+             </div>
+             )
+         }
+      
+   }
+   ReactDOM.render(<MyCmponent title="zzzzzzz"/>,document.getElementById("app"))
+</script>
+
+<script type="text/babel">
+console.log(1111);
+const title= "Hello react";
+const list =[
+  "React","Angular","Vue"
+];
+
+ function Demo(){
+  return ( 
+    <div>
+  <h1 title={title}>
+   <span style={{color:'red'}}>{title}</span>
+   </h1>
+    
+   <input type="text" readOnly value={title}/>
+   <ul>
+    {
+      list.map((item,index)=>{
+        return <li key={index}>{item}</li>;
+      })
+      
+    }
+    </ul>
+   </div>
+  )
+
+} 
+
+ReactDOM.render(<Demo/>,document.getElementById("app2"));
+
+</script>
+
+</body>
+
+</html>

@@ -8,10 +8,17 @@ window.onload=function (){
 //  ctx.lineTo(100,10);
 //  ctx.lineTo(100,200);
 //  ctx.stroke();
+ctx.font ="50px Arial";
+ctx.fontStye= "red";
+ctx.fillText('sssswwwwwww',10,110);
+ctx.beginPath();
+
+
 //绘制矩形
+ctx.beginPath();
 ctx.rect(0,0,300,150);//ctx.rect(在上角 x,左上角 y,width,height)
 ctx.fillStyle= "#ccc"//填充颜色
-ctx.fill()//开始填充
+//ctx.fill()//开始填充
 //ctx.clearRect(50,50,50,50)//清除区域（））
 canvas.onmousedown= function(e){
     canvas.onmousemove =function(e){

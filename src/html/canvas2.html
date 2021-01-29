@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas </title>
+</head>
+<body>
+  <canvas  id="canvas" width="800" height="800">
+
+  </canvas>
+
+  <script>
+      let canvas =document.querySelector("#canvas");
+      let context = canvas.getContext('2d');
+      console.log(context);
+      context.moveTo(0,0);
+      context.lineTo(100,0);
+      context.lineTo(100,100);
+      context.closePath();
+      context.strokeStyle= 'red';
+      context.stroke();
+     
+      //绘制圆
+      context.moveTo(500,200);
+      context.beginPath();
+      context.arc(95,50,40,0,2*Math.PI)
+      context.strokeStyle= 'green';
+      context.stroke();
+      //绘制文本
+      context.beginPath();
+     context.font='40px Arial';
+      
+     context.fillText('Hellow world',1, 100);
+     let lineW =10;
+     let lineH = 10;
+
+     for(i =0;i< 800/lineH;i++){
+       context.moveTo(0,i*lineW);
+      context.lineTo(800,i*lineW);
+
+     context.moveTo(i*lineH,0);
+     context.lineTo(i*lineH,800);
+     
+      context.strokeStyle= 'gray';
+      context.stroke();
+     }
+
+    // 绘制图片
+    let imag = new Image();
+    imag.src ='img/alipay.png'
+    imag.onload = ()=>{
+      context.drawImage(imag, 300, 300)
+    }
+      
+      
+
+  </script>
+  
+</body>
+</html>
