@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding:0;
+            margin: 0;
+        }
+        li {
+            list-style: none;
+        }
+        .banner {
+          width: 520px;
+          height: 280px;
+          position: relative;
+          margin: 10px auto;
+        }
+        .banner img {
+            width: 520px;
+          height: 280px;
+        }
+       .banner .pre {
+           position: absolute;
+           top: 50%;
+           margin-top: -15px;
+           width: 20px;
+           height: 30px;
+           color: #fff;
+           background: rgba(0, 0, 0, .3);
+           line-height: 30px;
+           border-top-right-radius: 15px;
+           border-bottom-right-radius: 15px;
+           text-decoration: none;
+
+       }
+       
+       .banner .next {
+           position: absolute;
+           width: 20px;
+           height: 30px;
+           top: 50%;
+           right: 0;
+           margin-top: -15px;
+          
+           color: #fff;
+           background: rgba(0, 0, 0, .3);
+           line-height: 30px;
+           border-top-left-radius: 15px;
+           border-bottom-left-radius: 15px;
+           text-decoration: none;
+
+
+       }
+       
+
+       .banner .ac {
+        display: none;
+       }
+       .banner:hover .ac {
+           display: block !important;;
+       }
+       .banner .ct  {
+           width: 70px;
+           height: 13px;
+           position: absolute;
+          left: 50%;
+           margin-left: -35px;
+           bottom: 10px;
+           background: rgba(255, 255, 255, .3);
+           /* overflow: hidden;
+           text-align: center; */
+           border-radius: 7px;
+       }
+       .banner  .ct li {
+           float: left;
+           width: 8px;
+           height: 8px;
+           background: #fff;
+           border-radius: 50%;
+           margin: 3px;
+           
+
+       }
+       .banner  .ct .selected {
+        background: #ff500f;
+       }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <img src="images/ad.jpg">
+        <div class="ac">
+            <a class="pre">&lt;</a>
+            <a class="next">&gt;</a>
+           
+        </div>
+        <ul class="ct">
+            <li></li>
+            <li class="selected"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        
+    </div>
+</body>
+</html>
