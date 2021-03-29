@@ -32,8 +32,20 @@ if ($conn->connect_error) {
 } 
 echo "连接成功";
   }
-  mysql();
-  phpinfo();
+ // mysql();
+  //phpinfo();
+  echo $_SERVER['SERVER_ADDR'];
+  echo $_SERVER['PHP_SELF'];
   ?>
+
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+Name: <input type="text" name="fname">
+<input type="submit">
+</form>
+ 
+<?php 
+$name = $_POST['fname']; 
+echo $name; 
+?>
 </body>
 </html>
