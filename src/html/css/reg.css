@@ -1,0 +1,59 @@
+/* *{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+} */
+li {
+  list-style: none;
+
+}
+.reg ul li {
+  height: 40px;
+  padding-top: 10px;
+ margin-bottom: 20px;
+  
+ 
+}
+.reg ul li label{
+  display: inline-block;
+  width: 80px;
+  font-size: 14px;
+  text-align: right;
+  line-height: 40px;
+  color: gray;
+  padding-right: 10px;
+}
+.reg {
+  width: 600px;
+  height: 600px;
+  margin: 50px auto 0;
+ 
+  /* background: pink; */
+}
+.err {
+  color: #c81523;
+}
+.myinput {
+  width: 242px;
+  height: 37px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+.safe {
+  padding-left: 175px;
+  font-size: 10px;
+  color: #ccc;
+}
+.safe em {
+  padding: 0 12px;
+  color: #ccc;
+}
+.ruo {
+  background-color: #de1111;
+}
+.zhong {
+  background-color: #40b83f;
+}
+.qiang {
+  background-color: #f79100;
+}

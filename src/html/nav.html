@@ -65,7 +65,32 @@
   .clearfix{
     *zoom: 1;
   }
-  
+  .clearfix::before {
+    content: '';
+  }
+ .tra {
+    width: 100px;
+    height: 100px;
+    background: chartreuse;
+    /* transition: 变化的属性 所需的时间 动动曲线 何时开始; */
+    /* transition: width .5s; */
+    transition: all .5s;
+  }
+  .tra::after {
+    content: 'a';
+  }
+  .tra::before {
+    content: 'b';
+  }
+  .tra:hover {
+    width: 200px;
+    height: 200px;
+  }
+  .reg {
+     width: 400px;
+     margin: 0, auto;
+     background: pink;
+  }
   </style>
 
 
@@ -87,5 +112,7 @@
         <div class="left">left</div>
         <div class="right">right</div>
     </div>
+    <div class="tra">111</div>
+
   </body>
 </html>

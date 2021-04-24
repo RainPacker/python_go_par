@@ -9,6 +9,7 @@
         *{
             padding:0;
             margin: 0;
+            box-sizing: border-box;
         }
         li {
             list-style: none;
@@ -110,5 +111,64 @@
         </ul>
         
     </div>
+    <select id="mySelect" name="transMethod" id="transMethod1" style="width: 100%">
+      <option value="">请选择</option>
+      <option value="custom">自定义(custom)</option>
+      <option value="methods">多组方法(methods)</option>
+      <option value="getEnum">获取枚举值(getEnum)</option>
+      <option value="choose">选择(choose)</option>
+      <option value="toString">数据类型转String(toString)</option>
+      <option value="dateFormat">日期格式转换(dateFormat)</option>
+      <option value="divide">除法(divide)</option>
+      <option value="multiply">乘法(multiply)</option>
+      <option value="round">保留小数点(round)</option>
+      <option value="compairRes">匹配方法(compairRes)</option>
+      <option value="compareObj">比较对象关系(compareObj)</option>
+      <option value="adjustDay">日期增减(adjustDay)</option>
+      <option value="adjustYear">调整年(adjustYear)</option>
+      <option value="replace">字符串替换(replace)</option>
+      <option value="subtract">数值类型做减法(subtract)</option>
+      <option value="generateSerial">随机生成流水号(generateSerial)</option>
+      <option value="invokeMethod">调用对象的指定方法(invokeMethod)</option>
+      <option value="fel">fel表达式(fel)</option>
+      <option value="changeCondition">
+        替换表达式中的DTO为值(changeCondition)
+      </option>
+      <option value="copyValue">复制节点数值到另外的节点上(copyValue)</option>
+      <option value="encode">数据加密(encode)</option>
+      <option value="decode">数据解密(decode)</option>
+      <option value="split">拆分(split)</option>
+      <option value="combination">组合节点(combination)</option>
+      <option value="subString">截取字符串(subString)</option>
+      <option value="length">获取字符串长度(length)</option>
+      <option value="hashList">将入参的两个list转为hash散列表(hashList)</option>
+      <option value="codeRemoteConvert">
+        本地编码转换为机构编码(codeRemoteConvert)
+      </option>
+      <option value="codeLocalConvert">
+        机构编码转换为本地编码(codeLocalConvert)
+      </option>
+    </select>
+
+    <script>
+     let mySe= document.querySelector("#mySelect")
+    console.log(mySe.options) 
+    let arr =[];
+    for(let i =0 ;i< mySe.options.length ;i++){
+
+      let element = mySe.options[i];
+      console.log(element.value)
+      let item ={
+        label: element.text,
+        code:element.value,
+      }
+      arr.push(item)
+     
+    }
+    console.log(arr, JSON.stringify(arr,null,2))
+    // mySe.options.map(element => {
+    //  console.log(element)
+    // });
+    </script>
 </body>
 </html>
