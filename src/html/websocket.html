@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebSocket</title>
+</head>
+<body>
+  <input type="text" id="msg">
+  <button id="send">发送</button>
+
+  <script>
+    var ws = new WebSocket("ws://localhost:8098/test/one");
+                
+               ws.onopen = function()
+               {
+                  // Web Socket 已连接上，使用 send() 方法发送数据
+                  ws.send("发送数据");
+                  console.log("数据发送中...")
+               };
+                
+               ws.onmessage = function (evt) 
+               { 
+                  var received_msg = evt.data;
+                  console.log("数据已接收...",evt, received_msg);
+               };
+                
+               ws.onclose = function()
+               { 
+                  // 关闭 websocket
+                  alert("连接已关闭..."); 
+               };
+               document.getElementById("send").onclick = function(){
+                 var msg = document.getElementById("msg").value
+                 if(msg){
+                   ws.send(msg)
+                 }
+               }
+
+  </script>
+</body>
+</html>
