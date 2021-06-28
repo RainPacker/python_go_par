@@ -170,6 +170,43 @@
     // mySe.options.map(element => {
     //  console.log(element)
     // });
+
+  const res=  fetch("http://47.243.44.203:10001/btCloud//user/sendSms", {
+  "headers": {
+    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+    "accept-language": "zh-CN,zh;q=0.9,en;q=0.8,fr;q=0.7",
+    "cache-control": "max-age=0",
+    "upgrade-insecure-requests": "1"
+  },
+  "referrerPolicy": "strict-origin-when-cross-origin",
+  "body": null,
+  "method": "GET",
+  "mode": "cors",
+  "credentials": "omit"
+});
+res.then(res=>res.json()).then(json=>{console.log(json)})
+    </script>
+
+    <script>
+      function getMyDate3() {
+  var oDate = new Date(),
+    oYear = oDate.getFullYear(),
+    oMonth = oDate.getMonth() + 1,
+    oDay = oDate.getDate(),
+    oHour = oDate.getHours(),
+    oMin = oDate.getMinutes(),
+    oSen = oDate.getSeconds();
+    var len = oYear.toString().length;
+    oYear = oYear.toString();
+    if(len >= 3){
+      oYear= oYear.substring(len-2,len);
+    }
+    oTime = oYear.toString() + (oMonth) + (oDay)
+
+  return oTime
+}
+console.log(getMyDate3())
+
     </script>
 </body>
 </html>

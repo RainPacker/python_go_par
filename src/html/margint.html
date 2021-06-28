@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Margin</title>
+</head>
+<style>
+    ul {
+        overflow: hidden;
+    }
+    ul li {
+        position: relative;
+        float: left;
+        width: 200px;
+        height: 200px;
+        border: 1px solid red;
+        margin-left: -1px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        list-style: none;
+        /* white-space: pre; */
+        
+    }
+    ul li:hover {
+        z-index: 1;
+        position: relative;
+        border: 1px solid blue;
+        text-shadow: #ddd 5px 5px 3px;
+    }
+    .box {
+        width: 0;
+        height: 0;
+        /* border-bottom: 0 solid red;
+        border-top:100px solid blue ;
+        border-left: 0 solid yellow;
+        border-right: 50px solid green; */
+        border-style: solid;
+        border-color: transparent red transparent transparent;
+        border-width: 100px 50px 0 0;
+    }
+    .price  {
+        margin: 0 auto;
+        width: 160px;
+        height: 24px;
+        line-height: 24px;
+        border: 1px solid red;
+    }
+    .miaosho {
+        position: relative;
+        float: left;
+        width: 90px;
+        height: 100%;
+        text-align: center;
+        color: #fff;
+        background-color: red;
+        margin-right: 10px;
+    }
+    .miaosho i {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-color: transparent #fff transparent transparent;
+        border-style: solid;
+        border-width: 24px 12px 0 0;
+        right: 0;
+        top: 0;
+    }
+    .ora {
+        color: gray;
+        text-decoration: line-through;
+        text-align: center;
+    }
+    ul li:nth-child(1) {
+        font-style: italic;
+        font-size: 20px;
+        color: rgba(113, 133, 223, 0.5);
+        font-family: 'Courier New', Courier, monospace;
+        line-height: 1.5em;
+    }
+    ul li:first-child {
+        color: red;
+        /* font-variant: small-caps; */
+        text-transform: uppercase;
+        white-space: pre;
+    }
+</style>
+<body>
+    <ul>
+        <li>1aaaBCDEfghijklmnpaaaaaa  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+
+    <div class="box">
+
+    </div>
+    <div class="price">
+            <span class="miaosho">￥600
+                <i></i>
+            </span>
+            <span class="ora">￥500</span>
+    </div>
+</body>
+</html>
