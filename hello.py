@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import keyword
 import  random
 
@@ -59,4 +60,4 @@ while i <=100:
     # print(i)
     sum += i
     i = i+1
-print(sum, end= "")
+print(sum, end= "&")
