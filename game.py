@@ -1,4 +1,5 @@
 import random
+
 print("###game start#######################################")
 player = int(input("请验入你要出的的拳头( 1:石头 2:剪刀 3:布):"))
 
