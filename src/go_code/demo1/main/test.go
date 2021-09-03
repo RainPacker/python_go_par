@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	cal2 "go_code/cal"
 	"strconv"
 	"strings"
 	"unsafe"
@@ -194,5 +195,7 @@ func main() {
 	var slice = []int{1, 3, 6, 5, 2, 7, 9, 4}
 
 	fmt.Println(sortIntAsc(slice))
+
+	cal2.FunTest()
 
 }
