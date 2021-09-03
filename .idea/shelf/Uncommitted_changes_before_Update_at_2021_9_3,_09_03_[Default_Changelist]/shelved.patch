@@ -1,0 +1,450 @@
+Index: src/go_code/demo1/main/function.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main\n\nimport \"fmt\"\n\n// 自定义类型\ntype calc func(x, y int) int\n\nfunc sum(x, y int) int {\n\treturn x + y\n}\nfunc cal(x, y int, cb calc) int {\n\treturn cb(x, y)\n}\n\nfunc main() {\n\tvar s calc\n\ts = sum\n\tfmt.Println(s(2, 3))\n\tfmt.Printf(\"s 的类型是%T\\n\", s)\n\tb := sum\n\tfmt.Printf(\"b的类型是%T\\n\", b)\n\tfmt.Println(cal(10, 19, s))\n\tvar a = func() {\n\t\tprint(\"我是匿名函数\")\n\t}\n\tfmt.Println(a)\n\ta()\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/go_code/demo1/main/function.go b/src/go_code/demo1/main/function.go
+--- a/src/go_code/demo1/main/function.go	(revision 46862bcd5d3dd757506546ba311482c139d968ab)
++++ b/src/go_code/demo1/main/function.go	(date 1630575837934)
+@@ -1,6 +1,9 @@
+ package main
+ 
+-import "fmt"
++import (
++	"fmt"
++	"time"
++)
+ 
+ // 自定义类型
+ type calc func(x, y int) int
+@@ -11,6 +14,67 @@
+ func cal(x, y int, cb calc) int {
+ 	return cb(x, y)
+ }
++// 匿名返回
++func  fun1() int   {
++	var a int = 0
++	defer func() {
++		a++
++	}()
++	return  a
++}
++func  fun2() (a int)  {
++	//var a int = 0
++	defer func() {
++		a++
++	}()
++	return  a
++}
++func fun3()  {
++	defer func() {
++		// 可以捕获到异常信息 recover
++		err := recover()
++		if err != nil {
++			fmt.Println("error=",err)
++		}
++	}()
++	panic("fun3抛出一个异常。。。")
++}
++
++type Usb interface {
++	start()
++	stop()
++}
++type Phone struct {
++	Name string
++}
++type Computer struct {
++
++}
++
++func (computer Computer) work(usb Usb)  {
++	usb.start()
++	usb.stop()
++}
++
++func (phone Phone) stop() {
++	fmt.Println("手机闭关...")
++}
++
++func (phone Phone) start()  {
++	fmt.Println("小米手机启动...")
++}
++
++type Camer struct {
++
++}
++
++func (c Camer) start() {
++	fmt.Println("相机启动...")
++}
++
++func (c Camer) stop() {
++	fmt.Println("相机关闭...")
++}
+ 
+ func main() {
+ 	var s calc
+@@ -23,6 +87,53 @@
+ 	var a = func() {
+ 		print("我是匿名函数")
+ 	}
+-	fmt.Println(a)
++	// 延迟执行
++     fmt.Println(a)
+ 	a()
++	fmt.Println("")
++	fmt.Println(fun1())
++	fmt.Println(fun2())
++	fun3()
++	fmt.Println(time.Now())
++	now := time.Now()
++	formatStr := now.Format("2006-01-02 15:04:05")
++	fmt.Println(formatStr)
++	fmt.Println(now.Unix())
++	times := time.Unix(1630395929, 0)
++	fmt.Println(times)
++	fmt.Printf("%d-%02d-%d %v:%v:%v",now.Year(), now.Month(), now.Day(), now.Hour(), now.Minute(), now.Second())
++     // 日期str 转 uinix
++	 str := "2020-01 12:20:20"
++	var temp string = "2006-01-02 15:04:05"
++	timeInput, _ := time.ParseInLocation(temp, str, time.Local)
++	fmt.Println("time",timeInput.Unix())
++	// 定时器
++	ticker := time.NewTicker(time.Second)
++	fmt.Println(ticker)
++	// ticker.C
++	n := 10
++	for t := range ticker.C {
++		fmt.Println(n)
++		n--
++
++		if n <0 {
++			ticker.Stop()
++			break
++		}
++		fmt.Println(t)
++	}
++	time.Sleep(time.Second) //休眠
++	n1 := & n
++	fmt.Println(n1, * n1)
++	var phone = Phone{
++		Name: "小米",
++	}
++	var usb Usb
++	usb = phone // 手机继承了 Usb 接口
++	usb.start()
++	//usb.stop()
++	var computer = Computer{}
++	var carmer = Camer{}
++	computer.work(phone)
++	computer.work(carmer)
+ }
+Index: src/go_code/demo1/main/test.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main\n\nimport (\n\t\"fmt\"\n\t\"strconv\"\n\t\"strings\"\n\t\"unsafe\"\n)\n\nfunc add(x int, y int) int {\n\treturn x + y\n}\nfunc getUserInfo() (int, string) {\n\treturn 29, \"zhangyangyang\"\n}\n\n// 无返回值\nfunc demo(x ...int) []int {\n\tfmt.Println(x)\n\treturn x\n}\nfunc sortIntAsc(slice []int) []int {\n\tfor i := 0; i < len(slice); i++ {\n\t\tfor j := i + 1; j < len(slice); j++ {\n\t\t\tif slice[i] > slice[j] {\n\t\t\t\ttemp := slice[i]\n\t\t\t\tslice[i] = slice[j]\n\t\t\t\tslice[j] = temp\n\t\t\t}\n\t\t}\n\t}\n\n\treturn slice\n}\n\nfunc main() {\n\tfmt.Println(add(42, 13))\n\tvar a, b int\n\ta = 10\n\tb = 11\n\tc := 12.131415926\n\tfmt.Println(a, b, c)\n\tfmt.Printf(\"c的类型是%T\\n\", c)\n\tfmt.Printf(\"c=%.2f c的二进制是：%b \\n\", c, c)\n\tfmt.Printf(\"a=%v b=%v c=%x \", a, b, c)\n\tvar username string\n\tfmt.Println(username)\n\tvar (\n\t\td string\n\t\te int\n\t)\n\td = \"zhang\"\n\td2 := \"yang\"\n\td3 := fmt.Sprintf(\"%v-%v\", d, d2)\n\tfmt.Println(d3)\n\te = 1\n\tfmt.Println(d, e, unsafe.Sizeof(d), unsafe.Sizeof(e))\n\tf, g, h := 1, 2, \"2\"\n\tfmt.Printf(\"f的类型是%T g的类型是%T h 的类型是%T\", f, g, h)\n\t//var age, name = getUserInfo()\n\t// 匿名变量 _\n\tvar age, _ = getUserInfo()\n\tfmt.Println(age)\n\t// 常量\n\tconst pi = 3.14\n\tfmt.Printf(\"pi=%v 类型是%T \\n\", pi, pi)\n\t// 计数 iota\n\tconst y = iota\n\tfmt.Println(y)\n\tconst (\n\t\tz, p = iota + 1, iota + 2\n\t\t_, _\n\t\tzz, pp\n\t)\n\tfmt.Println(z, p, zz, pp)\n\t// 切片\n\tvar str = \"a-b-c\"\n\tprintln(str)\n\tsplit := strings.Split(str, \"-\")\n\tfmt.Println(split)\n\tfmt.Println(strings.Join(split, \",\"))\n\tvar arr = []string{\"a\", \"b\", \"c\"}\n\tfmt.Println(arr)\n\tstr2 := \"-\"\n\tfmt.Println(strings.Index(str, str2))\n\tfmt.Println(strings.LastIndex(str, str2))\n\t// 字符 byte\n\tvar by = 'a'\n\tfmt.Println(unsafe.Sizeof(by))\n\tfmt.Printf(\"by=%v by=%c type is : %T \\n\", by, by, by)\n\tfor i := 0; i < len(str); i++ {\n\t\tfmt.Printf(\"%v(%c)\\n\", str[i], str[i])\n\n\t}\n\tvar str3 = \"你好golang\"\n\tfor _, v := range str3 {\n\t\tfmt.Printf(\"%v(%c) 类型：%T\\n \", v, v, v)\n\t}\n\tbyts := []byte(str)\n\tbyts[0] = 'A'\n\tfmt.Println(string(byts))\n\tbyts2 := []rune(str3) // 字符中有中文使用 rune\n\tbyts2[0] = '真'\n\tfmt.Println(string(byts2))\n\tpistr := fmt.Sprintf(\"%f\", pi)\n\tfmt.Println(pistr)\n\tfmt.Println(strconv.FormatInt(int64(e), 10))\n\tfmt.Println(strconv.FormatFloat(pi, 'f', 2, 64))\n\tfmt.Println(strconv.ParseInt(\"123\", 10, 32))\n\tfmt.Println(e << 2)\n\tif e > 2 {\n\t\tfmt.Println(\"e  是大于2的\")\n\t} else {\n\t\tfmt.Println(\"不大于2\")\n\t}\n\tif score := 80; score > 95 {\n\t\tfmt.Println(\"优秀\")\n\t} else if score >= 80 {\n\t\tfmt.Println(\"良\")\n\t} else if score >= 70 {\n\t\tfmt.Println(\"不错\")\n\t} else {\n\t\tfmt.Println(\"要努力了\")\n\t}\n\t// golang 中没有 while\n\ti := 1\n\tfor i <= 10 {\n\t\tfmt.Println(\"golang\")\n\t\ti++\n\t}\n\t// 打印乘法表\n\tfor i := 1; i <= 9; i++ {\n\t\tfor j := 1; j <= i; j++ {\n\t\t\tfmt.Printf(\"%v*%v=%v \\t\", i, j, i*j)\n\t\t}\n\n\t\tfmt.Println(\"\")\n\n\t}\n\t// forrang 的使用\n\ttitle := \"你好golang\"\n\tfor k, v := range title {\n\t\tfmt.Println(k, v)\n\t}\n\tswitch num := 7; num {\n\n\tcase 1, 3, 5, 7, 9:\n\t\tfmt.Println(\"是奇数\")\n\tcase 2, 4, 6, 8, 10:\n\t\tfmt.Println(\"是偶数\")\n\n\t}\n\n\t// 切片\n\tvar arr2 = []string{\"a\", \"b\", \"c\"}\n\t// 数组\n\tvar arr3 = [...]string{\"a\", \"b\", \"c\"}\n\tfmt.Println(arr2, arr3)\n\tarr4 := arr3[:]  // 全部\n\tarr4 = arr3[1:2] // 全部\n\tfmt.Println(arr4)\n\tfmt.Printf(\"长度是%d 容量是:%d\", len(arr4), cap(arr4))\n\tfmt.Println(append(arr2, \"d\"))\n\tfmt.Println(append(arr2, \"d\"))\n\t// map\n\tvar userIfo = make(map[string]string)\n\tuserIfo[\"age\"] = \"20\"\n\tuserIfo[\"name\"] = \"zyy\"\n\tfmt.Println(userIfo)\n\tvar usrInfo2 = map[string]string{\n\t\t\"name\": \"zyy\",\n\t\t\"age\":  \"30\",\n\t\t\"h\":    \"168\",\n\t}\n\tusrInfo2[\"x\"] = \"xxxx\"\n\tusrInfo2[\"x\"] = \"222\"\n\tfmt.Println(usrInfo2[\"name\"])\n\tfor k, v := range usrInfo2 {\n\t\tfmt.Printf(\"%v=%v \\n\", k, v)\n\t}\n\n\tdelete(usrInfo2, \"h\")\n\t// 查找\n\ts, ok := usrInfo2[\"h\"]\n\tfmt.Println(s, ok)\n\tvar info = make(map[string][]string)\n\n\tinfo[\"hobby\"] = []string{\n\t\t\"java\",\n\t\t\"golang\",\n\t}\n\tfmt.Println(info)\n\tdemo(1, 2, 3)\n\tvar slice = []int{1, 3, 6, 5, 2, 7, 9, 4}\n\n\tfmt.Println(sortIntAsc(slice))\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/go_code/demo1/main/test.go b/src/go_code/demo1/main/test.go
+--- a/src/go_code/demo1/main/test.go	(revision 46862bcd5d3dd757506546ba311482c139d968ab)
++++ b/src/go_code/demo1/main/test.go	(date 1630574154627)
+@@ -2,6 +2,7 @@
+ 
+ import (
+ 	"fmt"
++	cal2 "go_code/cal"
+ 	"strconv"
+ 	"strings"
+ 	"unsafe"
+@@ -195,4 +196,6 @@
+ 
+ 	fmt.Println(sortIntAsc(slice))
+ 
++	cal2.FunTest()
++
+ }
+Index: src/go_code/go.mod
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/go_code/go.mod b/src/go_code/go.mod
+new file mode 100644
+--- /dev/null	(date 1630571697363)
++++ b/src/go_code/go.mod	(date 1630571697363)
+@@ -0,0 +1,3 @@
++module go_code
++
++go 1.17
+Index: src/go_code/cal/cal.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/go_code/cal/cal.go b/src/go_code/cal/cal.go
+new file mode 100644
+--- /dev/null	(date 1630572681765)
++++ b/src/go_code/cal/cal.go	(date 1630572681765)
+@@ -0,0 +1,11 @@
++package cal
++
++import "fmt"
++
++func init()  {
++	fmt.Println("cal init....")
++}
++func FunTest(){
++	fmt.Println("helllll....")
++}
++
+Index: src/go_code/demo1/main/StructDemo.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/go_code/demo1/main/StructDemo.go b/src/go_code/demo1/main/StructDemo.go
+new file mode 100644
+--- /dev/null	(date 1630568870153)
++++ b/src/go_code/demo1/main/StructDemo.go	(date 1630568870153)
+@@ -0,0 +1,33 @@
++package main
++
++import "fmt"
++
++type Animal struct {
++	Name string
++}
++
++func (a Animal)run()  {
++	fmt.Printf("%v在运动\n", a.Name)
++}
++// 继承 animal
++type Dog struct {
++	Age int
++	Animal
++}
++
++func (d Dog) wang()  {
++	fmt.Printf("%v在汪汪\n", d.Name)
++}
++
++func main() {
++	  dog := Dog {
++		  Age: 1,
++		  Animal: Animal{
++			  Name: "ww",
++		  },
++
++	}
++	fmt.Println(dog)
++	  dog.run()
++	  dog.wang()
++}
+Index: src/go_code/demo1/main/Point.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/go_code/demo1/main/Point.go b/src/go_code/demo1/main/Point.go
+new file mode 100644
+--- /dev/null	(date 1630570463583)
++++ b/src/go_code/demo1/main/Point.go	(date 1630570463583)
+@@ -0,0 +1,68 @@
++package main
++
++import (
++	"encoding/json"
++	"fmt"
++	"unsafe"
++)
++
++type Person struct {
++	Name string `json:"name"`
++	age int
++	addr string
++}
++
++// PrintPersonInfo 给 Person 添加行为方法
++func (p Person) PrintPersonInfo()  {
++	fmt.Printf("name=%v age =%v addr=%v\n",p.Name, p.age, p.addr)
++}
++func (p *Person) SetAge(age int)  {
++	p.age = age
++}
++
++func main() {
++	var a =  new(int) // 创建一个 int 类型的指针
++	fmt.Printf("a 的值是%v 类型是%T %v", a, a,unsafe.Sizeof(a))
++	var p1 Person
++	p1.Name ="zyy"
++	p1.age = 29
++	p1.addr = "addr"
++
++	fmt.Println("")
++	fmt.Println(p1)
++	fmt.Printf("p1的值是%v 类型是%T \n", p1, p1)
++	fmt.Printf("p1的值是%#v 类型是%T", p1, p1)
++
++	var p2 = new(Person)
++	p2.Name= "rain"
++	p2.age =11
++	p2.addr ="wx"
++	fmt.Println("###########")
++	fmt.Println("p2=", p2)
++	var p3 = &Person {
++
++	}
++	p3.Name = "zyy"
++	fmt.Println(p3)
++	p2.PrintPersonInfo()
++	var p4 = Person{
++		Name: "zhang",
++		age: 11,
++		addr: "11",
++	}
++	p4.SetAge(30)
++	p4.PrintPersonInfo()
++	// 将p4 转换成 json 字符 注 只用是大写的（Public）才能序列化）
++	jsonByte, _ := json.Marshal(p4)
++	jsons := string(jsonByte)
++	fmt.Println(jsons)
++	 var p5 Person
++	 jsonStr := `{"name":"zhangyang-p5"}`
++	 // json字符 转成 struct
++	err := json.Unmarshal([]byte(jsonStr), &p5)
++	if err != nil {
++		fmt.Println(err)
++	}
++	fmt.Println(p5)
++
++}
+Index: .idea/codeStyles/codeStyleConfig.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/codeStyles/codeStyleConfig.xml b/.idea/codeStyles/codeStyleConfig.xml
+new file mode 100644
+--- /dev/null	(date 1630568052650)
++++ b/.idea/codeStyles/codeStyleConfig.xml	(date 1630568052650)
+@@ -0,0 +1,5 @@
++<component name="ProjectCodeStyleConfiguration">
++  <state>
++    <option name="PREFERRED_PROJECT_CODE_STYLE" value="Default" />
++  </state>
++</component>
+\ No newline at end of file
+Index: .idea/inspectionProfiles/Project_Default.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"InspectionProjectProfileManager\">\n  <profile version=\"1.0\">\n    <option name=\"myName\" value=\"Project Default\" />\n    <inspection_tool class=\"JavadocReference\" enabled=\"true\" level=\"WEAK WARNING\" enabled_by_default=\"true\" />\n  </profile>\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/inspectionProfiles/Project_Default.xml b/.idea/inspectionProfiles/Project_Default.xml
+--- a/.idea/inspectionProfiles/Project_Default.xml	(revision 46862bcd5d3dd757506546ba311482c139d968ab)
++++ b/.idea/inspectionProfiles/Project_Default.xml	(date 1630630994708)
+@@ -1,6 +1,98 @@
+ <component name="InspectionProjectProfileManager">
+   <profile version="1.0">
+     <option name="myName" value="Project Default" />
++    <inspection_tool class="AliAccessStaticViaInstance" enabled="false" level="BLOCKER" enabled_by_default="false" />
++    <inspection_tool class="AliArrayNamingShouldHaveBracket" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AliControlFlowStatementWithoutBraces" enabled="false" level="BLOCKER" enabled_by_default="false" />
++    <inspection_tool class="AliDeprecation" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AliEqualsAvoidNull" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AliLongLiteralsEndingWithLowercaseL" enabled="false" level="BLOCKER" enabled_by_default="false" />
++    <inspection_tool class="AliMissingOverrideAnnotation" enabled="false" level="BLOCKER" enabled_by_default="false" />
++    <inspection_tool class="AliWrapperTypeEquality" enabled="false" level="BLOCKER" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAbstractClassShouldStartWithAbstractNaming" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAbstractMethodOrInterfaceMethodMustUseJavadoc" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAvoidApacheBeanUtilsCopy" enabled="false" level="BLOCKER" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAvoidCallStaticSimpleDateFormat" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAvoidCommentBehindStatement" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAvoidComplexCondition" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAvoidConcurrentCompetitionRandom" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAvoidDoubleOrFloatEqualCompare" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAvoidManuallyCreateThread" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAvoidMissUseOfMathRandom" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAvoidNegationOperator" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAvoidNewDateGetTime" enabled="false" level="BLOCKER" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAvoidPatternCompileInMethod" enabled="false" level="BLOCKER" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAvoidReturnInFinally" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAvoidStartWithDollarAndUnderLineNaming" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaAvoidUseTimer" enabled="false" level="BLOCKER" enabled_by_default="false" />
++    <inspection_tool class="AlibabaBigDecimalAvoidDoubleConstructor" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaBooleanPropertyShouldNotStartWithIs" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaClassCastExceptionWithSubListToArrayList" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaClassCastExceptionWithToArray" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaClassMustHaveAuthor" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaClassNamingShouldBeCamel" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaCollectionInitShouldAssignCapacity" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaCommentsMustBeJavadocFormat" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaConcurrentExceptionWithModifyOriginSubList" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaConstantFieldShouldBeUpperCase" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaCountDownShouldInFinally" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaDontModifyInForeachCircle" enabled="false" level="BLOCKER" enabled_by_default="false" />
++    <inspection_tool class="AlibabaEnumConstantsMustHaveComment" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaExceptionClassShouldEndWithException" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaIbatisMethodQueryForList" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaLockShouldWithTryFinally" enabled="false" level="BLOCKER" enabled_by_default="false" />
++    <inspection_tool class="AlibabaLowerCamelCaseVariableNaming" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaMethodReturnWrapperType" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaMethodTooLong" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaPackageNaming" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaPojoMustOverrideToString" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaPojoMustUsePrimitiveField" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaPojoNoDefaultValue" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaRemoveCommentedCode" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaServiceOrDaoClassShouldEndWithImpl" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaStringConcat" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaSwitchStatement" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaTestClassShouldEndWithTestNaming" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaThreadLocalShouldRemove" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaThreadPoolCreation" enabled="false" level="BLOCKER" enabled_by_default="false" />
++    <inspection_tool class="AlibabaThreadShouldSetName" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaTransactionMustHaveRollback" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaUndefineMagicConstant" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaUnsupportedExceptionWithModifyAsList" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="AlibabaUseQuietReferenceNotation" enabled="false" level="MAJOR" enabled_by_default="false" />
++    <inspection_tool class="AlibabaUseRightCaseForDateFormat" enabled="false" level="CRITICAL" enabled_by_default="false" />
++    <inspection_tool class="JavaDoc" enabled="true" level="WARNING" enabled_by_default="true">
++      <option name="TOP_LEVEL_CLASS_OPTIONS">
++        <value>
++          <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
++          <option name="REQUIRED_TAGS" value="" />
++        </value>
++      </option>
++      <option name="INNER_CLASS_OPTIONS">
++        <value>
++          <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
++          <option name="REQUIRED_TAGS" value="" />
++        </value>
++      </option>
++      <option name="METHOD_OPTIONS">
++        <value>
++          <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
++          <option name="REQUIRED_TAGS" value="@return@param@throws or @exception" />
++        </value>
++      </option>
++      <option name="FIELD_OPTIONS">
++        <value>
++          <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
++          <option name="REQUIRED_TAGS" value="" />
++        </value>
++      </option>
++      <option name="IGNORE_DEPRECATED" value="false" />
++      <option name="IGNORE_JAVADOC_PERIOD" value="true" />
++      <option name="IGNORE_DUPLICATED_THROWS" value="false" />
++      <option name="IGNORE_POINT_TO_ITSELF" value="false" />
++      <option name="myAdditionalJavadocTags" value="date" />
++    </inspection_tool>
+     <inspection_tool class="JavadocReference" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
++    <inspection_tool class="MapOrSetKeyShouldOverrideHashCodeEquals" enabled="false" level="CRITICAL" enabled_by_default="false" />
+   </profile>
+ </component>
+\ No newline at end of file

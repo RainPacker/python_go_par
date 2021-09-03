@@ -79,6 +79,25 @@ func (c Camer) stop() {
 	fmt.Println("相机关闭...")
 }
 
+func duanyan(x interface{}) {
+	// x.(type)  只能在 swithch 中使用
+	switch x.(type) {
+	case string:
+		fmt.Println("我是 string 类型")
+		break
+	case int:
+		fmt.Println("我是 int 类型")
+		break
+	case bool:
+		fmt.Println(" 我是 bool 类型")
+	case byte:
+		fmt.Println(" 我是 byte 类型")
+	default:
+		fmt.Println(" 未知类型。。。")
+
+	}
+}
+
 func main() {
 	var s calc
 	s = sum
@@ -157,5 +176,8 @@ func main() {
 		fmt.Println("断言失败")
 
 	}
+	duanyan(1)
+	duanyan(true)
+	duanyan("222")
 
 }
