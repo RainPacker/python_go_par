@@ -24,18 +24,49 @@ func chanVal(i interface{}) {
 func GetFiled(i interface{}) {
 	var el = reflect.TypeOf(i)
 	fmt.Println(el)
-	field := el.Field(0)
+	field := el.Elem().Field(0)
 	fmt.Println(field)
+	name := field.Name
+	ty := field.Type
+	tag := field.Tag.Get("json")
+	fmt.Println(name, ty, tag)
+
+	filed1, ok := el.Elem().FieldByName("Age")
+	if ok {
+		fmt.Println(filed1.Name, filed1.Type, filed1.Tag)
+	}
+	method, ok := el.Elem().MethodByName("PrintInfo")
+	fmt.Println(ok)
+	if ok {
+		fmt.Println(method)
+	}
+	var val = reflect.ValueOf(i)
+	val.MethodByName("PrintInfo").Call(nil)
 	//if el.Elem().Kind() == reflect.Struct || el.Kind() == reflect.Struct {
 	//	field := el.Field(0)
 	//	fmt.Println(field)
 	//}
+	// 通过反射调整 方法 ChangeName
+	var params []reflect.Value
+	params = append(params, reflect.ValueOf("zhangyangyang"))
+	// 传入带参数的切片
+	val.MethodByName("ChangeName").Call(params)
+	fmt.Println("方法数量：", el.NumMethod())
 }
 
 type Student struct {
 	Name string `json:"name,omitempty"`
 	Age  int    `json:"age,omitempty"`
 	addr string `json:"addr,omitempty"`
+}
+
+func (s *Student) ChangeName(newName string) {
+	s.Name = newName
+	fmt.Printf("修改后的 名称=%v", s.Name)
+}
+
+func (s Student) PrintInfo() {
+	fmt.Printf("name=%v age =%v addr=%v", s.Name, s.Age, s.addr)
 }
 
 func main() {
@@ -67,5 +98,5 @@ func main() {
 		Age:  30,
 		addr: "wx",
 	}
-	GetFiled(stu)
+	GetFiled(&stu)
 }
